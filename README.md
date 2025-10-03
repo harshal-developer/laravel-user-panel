@@ -1,5 +1,8 @@
 # Laravel user Panel
 **Note: Users.sql project/database/...
+Login details : 
+Username : person1@gmail.com
+password : person@123
 ## How to Setup
 1. Clone the repo
    ```bash
