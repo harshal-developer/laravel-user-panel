@@ -78,9 +78,28 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
 
+    public function view(Request $request)
+    {
+        $user = User::find($request->id);
+
+        if (!$user) {
+            return response()->json(['status' => false, 'message' => 'User not found'], 404);
+        }
+
+        return response()->json(['status' => true,'data' => $user]);
+    }
+
     public function destroy(User $user)
     {
-        $user->delete(); //hard delete 
-        return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        //$user->delete(); //hard delete 
+        // var_dump($user->gender);
+        // die;
+        if ($user->gender === 'other' || str_contains($user->phone, '+1')) {
+            $user->delete();
+            return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+        }
+
+        // Agar condition match nahi hoti
+        return redirect()->route('users.index')->with('error', 'This user cannot be deleted based on the given conditions.');
     }
 }

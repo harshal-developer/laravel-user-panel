@@ -29,4 +29,5 @@ Route::post('register', [AuthController::class, 'store'])->name('register.post')
 // This is user panel 
 Route::middleware(['authcheck','nocache'])->group(function () {
     Route::resource('users', UserController::class);
+    Route::post('/users/view', [UserController::class, 'view'])->name('users.view');
 });
